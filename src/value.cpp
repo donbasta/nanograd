@@ -3,11 +3,12 @@ using namespace std;
 
 struct Value {
     double data, grad;
-    function<void(void)> _backward;
+    // function<void(void)> _backward;
     string label, op;
     vector<Value *> prev;
 
-    Value(int data, string label = "", string op = "") : data(data), grad(0.0), label(label), op(op), prev({}) {}
+    Value() : data(0.0) {}
+    Value(double data, string label = "", string op = "") : data(data), grad(0.0), label(label), op(op), prev({}) {}
 
     double get_grad() {
         return this->grad;
@@ -118,6 +119,7 @@ struct Value {
         reverse(topo.begin(), topo.end());
         topo[0]->grad = 1.0;
         for (auto v : topo) {
+            // cout << v->label << ' ' << v->data << '\n';
             v->__backward();
         }
     }
@@ -144,28 +146,63 @@ struct Value {
 //     return make_pair(nodes, edges);
 // }
 
-int main() {
-    // Value x = Value(2.0, "x");
-    // Value y = Value(3.0, "y");
-    // Value w = Value(1.0, "w");
+// class Module {
+//     void zero_grad() {
+//         for (auto p : this->parameters()) {
+//             p.grad = 0.0;
+//         }
+//     }
 
-    // Value z = x * y + w;
-    // z.label = "z";
+//     vector<Value> parameters() {
+//         return vector<Value>{};
+//     }
+// };
 
-    // z.backward();
+class Neuron {
+   private:
+    vector<Value *> w;
+    Value *b;
+    bool nonlin;
 
-    // cout << x << '\n';
-    // cout << y << '\n';
-    // cout << z << '\n';
-    // cout << w << '\n';
+   public:
+    Neuron(int nin, bool nonlin = true) : nonlin(nonlin) {
+        srand((unsigned)time(NULL));
+        for (int i = 0; i < nin; i++) {
+            double rand_weight = (double)rand() / RAND_MAX;
+            this->w.push_back(new Value(rand_weight));
+        }
+        double rand_bias = (double)rand() / RAND_MAX;
+        this->b = new Value(rand_bias);
+    }
 
-    Value x1 = Value(2.0);
-    Value x2 = Value(5.0);
-    Value x3 = Value(4.0);
+    vector<Value *> parameters() {
+        vector<Value *> ret = this->w;
+        ret.push_back(this->b);
+        return ret;
+    }
 
-    Value w1 = Value(4.0);
-    Value w2 = Value(3.0);
-    Value w3 = Value(-1.0);
+    Value &forward_prop(vector<Value> x) {
+        assert(x.size() == this->w.size());
+        Value *activation = new Value(0.0);
+        for (int i = 0; i < x.size(); i++) {
+            *activation = *activation + *(this->w[i]) * x[i];
+        }
+        // *activation = *activation + *(this->b);
+        if (this->nonlin) {
+            *activation = activation->ReLU();
+        }
+        return *activation;
+    }
+};
+
+void test1() {
+    Value x1 = Value(2.0, "x1");
+    Value x2 = Value(5.0, "x2");
+    Value x3 = Value(4.0, "x3");
+
+    Value w1 = Value(4.0, "w1");
+    Value w2 = Value(3.0, "w2");
+    Value w3 = Value(-1.0, "w3");
 
     Value z = (x1 * w1 + x2 * w2 + x3 * w3).ReLU();
     z.backward();
@@ -176,4 +213,34 @@ int main() {
     cout << "w1.grad: " << w1.grad << '\n';
     cout << "w2.grad: " << w2.grad << '\n';
     cout << "w3.grad: " << w3.grad << '\n';
+}
+
+void test2() {
+    Value x1 = Value(2.0, "x1");
+    Value x2 = Value(5.0, "x2");
+    Value x3 = Value(4.0, "x3");
+
+    Value w1 = Value(4.0, "w1");
+    Value w2 = Value(3.0, "w2");
+    Value w3 = Value(-1.0, "w3");
+
+    Value z = Value(0);
+    z = (z + x1 * w1);
+    z = (z + x2 * w2);
+    z = (z + x3 * w3);
+    z.backward();
+    cout << z.prev[0]->label << ' ' << z.prev[1]->label << '\n';
+
+    cout << "x1.grad: " << x1.grad << '\n';
+    cout << "x2.grad: " << x2.grad << '\n';
+    cout << "x3.grad: " << x3.grad << '\n';
+    cout << "w1.grad: " << w1.grad << '\n';
+    cout << "w2.grad: " << w2.grad << '\n';
+    cout << "w3.grad: " << w3.grad << '\n';
+}
+
+int main() {
+    test1();
+    cout << "-------------------------\n";
+    test2();
 }

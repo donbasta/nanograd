@@ -21,6 +21,10 @@ struct Value {
         } else if (op == "*") {
             this->prev[0]->grad += this->prev[1]->data * this->grad;
             this->prev[1]->grad += this->prev[0]->data * this->grad;
+        } else if (op == "ReLU") {
+            this->prev[0]->grad += this->grad * (this->prev[0]->data > 0.0);
+            // } else if (op == "^") {
+            //     this->prev[0]->grad += this->grad *
         }
     }
 
@@ -59,6 +63,42 @@ struct Value {
 
         return *new_value;
     }
+
+    // Value &pow(double n) {
+    //     double new_data = pow(self.data, n);
+    //     string new_label = self.label + "^" + to_string(n);
+    //     Value *new_value = new Value(new_data, new_label, "^");
+    //     new_value->prev = vector{this};
+
+    //     return *new_value;
+    // }
+
+    Value &ReLU() {
+        double new_data = max(0.0, this->data);
+        string new_label = "ReLU(" + this->label + ")";
+        Value *new_value = new Value(new_data, new_label, "ReLU");
+        new_value->prev = vector{this};
+
+        return *new_value;
+    }
+
+    // Value &tanh() {
+    //     double new_data = max(0.0, this->data);
+    //     string new_label = "ReLU(" + this->label + ")";
+    //     Value *new_value = new Value(new_data, new_label, "tanh");
+    //     new_value->prev = vector{this};
+
+    //     return *new_value;
+    // }
+
+    // Value &sigmoid() {
+    //     double new_data = max(0.0, this->data);
+    //     string new_label = "ReLU(" + this->label + ")";
+    //     Value *new_value = new Value(new_data, new_label, "sigmoid");
+    //     new_value->prev = vector{this};
+
+    //     return *new_value;
+    // }
 
     void backward() {
         set<Value *> visited;
@@ -105,17 +145,35 @@ struct Value {
 // }
 
 int main() {
-    Value x = Value(2.0, "x");
-    Value y = Value(3.0, "y");
-    Value w = Value(1.0, "w");
+    // Value x = Value(2.0, "x");
+    // Value y = Value(3.0, "y");
+    // Value w = Value(1.0, "w");
 
-    Value z = x * y + w;
-    z.label = "z";
+    // Value z = x * y + w;
+    // z.label = "z";
 
+    // z.backward();
+
+    // cout << x << '\n';
+    // cout << y << '\n';
+    // cout << z << '\n';
+    // cout << w << '\n';
+
+    Value x1 = Value(2.0);
+    Value x2 = Value(5.0);
+    Value x3 = Value(4.0);
+
+    Value w1 = Value(4.0);
+    Value w2 = Value(3.0);
+    Value w3 = Value(-1.0);
+
+    Value z = (x1 * w1 + x2 * w2 + x3 * w3).ReLU();
     z.backward();
 
-    cout << x << '\n';
-    cout << y << '\n';
-    cout << z << '\n';
-    cout << w << '\n';
+    cout << "x1.grad: " << x1.grad << '\n';
+    cout << "x2.grad: " << x2.grad << '\n';
+    cout << "x3.grad: " << x3.grad << '\n';
+    cout << "w1.grad: " << w1.grad << '\n';
+    cout << "w2.grad: " << w2.grad << '\n';
+    cout << "w3.grad: " << w3.grad << '\n';
 }

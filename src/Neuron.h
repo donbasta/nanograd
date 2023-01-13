@@ -16,5 +16,5 @@ class Neuron {
    public:
     Neuron(int nin, bool nonlin);
     vector<Value *> get_parameters();
-    Value &forward_prop(vector<Value *> x);
+    Value *forward_prop(vector<Value *> x);
 };

@@ -19,7 +19,7 @@ vector<Value *> Neuron::get_parameters() {
     return ret;
 }
 
-Value &Neuron::forward_prop(vector<Value *> data) {
+Value *Neuron::forward_prop(vector<Value *> data) {
     int sz = data.size();
     assert(sz == (int)this->w.size());
     Value *activation = new Value(0.0);
@@ -37,5 +37,5 @@ Value &Neuron::forward_prop(vector<Value *> data) {
     if (this->nonlin) {
         *activation = activation->ReLU();
     }
-    return *activation;
+    return activation;
 }

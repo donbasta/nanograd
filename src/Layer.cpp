@@ -17,3 +17,12 @@ vector<vector<Value *>> Layer::get_parameters() {
     }
     return ret;
 }
+
+vector<Value *> Layer::forward_prop(vector<Value *> data) {
+    assert((int)data.size() == this->nin);
+    vector<Value *> outs;
+    for (int i = 0; i < this->nout; i++) {
+        outs.push_back(this->neurons[i]->forward_prop(data));
+    }
+    return outs;
+}

@@ -14,4 +14,5 @@ class MLP {
    public:
     MLP(int nin, vector<int> nouts, vector<bool> nonlins);
     vector<vector<vector<Value *>>> get_parameters();
+    vector<Value *> forward_prop(vector<Value *> data);
 };

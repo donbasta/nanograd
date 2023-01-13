@@ -18,3 +18,11 @@ vector<vector<vector<Value *>>> MLP::get_parameters() {
     }
     return ret;
 }
+
+vector<Value *> MLP::forward_prop(vector<Value *> data) {
+    vector<Value *> tot = data;
+    for (int i = 0; i < (int)this->layers.size(); i++) {
+        tot = this->layers[i]->forward_prop(tot);
+    }
+    return tot;
+}

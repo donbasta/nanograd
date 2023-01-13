@@ -9,6 +9,13 @@ struct Value {
 
     Value() : data(0.0) {}
     Value(double data, string label = "", string op = "") : data(data), grad(0.0), label(label), op(op), prev({}) {}
+    // Value(const Value &other) {
+    //     this->data = other.data;
+    //     this->grad = other.grad;
+    //     this->label = other.label;
+    //     this->op = other.op;
+    //     this->prev = other.prev;
+    // }
 
     double get_grad() {
         return this->grad;
@@ -34,6 +41,17 @@ struct Value {
         string new_label = self.label + "+" + other.label;
         Value *new_value = new Value(new_data, new_label, "+");
         new_value->prev = vector{&self, &other};
+        // Value *self_cpy = new Value(self);
+        // Value *other_cpy = new Value(other);
+        // new_value->prev.push_back(self_cpy);
+        // new_value->prev.push_back(other_cpy);
+        // self = *self_cpy;
+        // other = *other_cpy;
+        // new_value->prev.push_back(new Value(self));
+        // new_value->prev.push_back(new Value(other));
+        // new_value->prev.push_back(&self);
+        // new_value->prev.push_back(&other);
+        // cout << "[" << self.label << " ,,,, " << other.label << "]\n";
 
         // function<void(void)> bw = [&]() -> void {
         //     cout << "tai kok ganti alamatnya: " << new_value << '\n';
@@ -52,6 +70,8 @@ struct Value {
         string new_label = self.label + "*" + other.label;
         Value *new_value = new Value(new_data, new_label, "*");
         new_value->prev = vector{&self, &other};
+        // new_value->prev.push_back(&self);
+        // new_value->prev.push_back(&other);
 
         // function<void(void)> bw = [&]() -> void {
         //     cout << "tai kok ganti alamatnya: " << new_value << '\n';
@@ -119,8 +139,11 @@ struct Value {
         reverse(topo.begin(), topo.end());
         topo[0]->grad = 1.0;
         for (auto v : topo) {
-            // cout << v->label << ' ' << v->data << '\n';
             v->__backward();
+        }
+        for (auto v : topo) {
+            cout << "TESTT " << v->label << ' ' << v->data << ' ' << v->grad << ' ' << v << '\n';
+            // v->__backward();
         }
     }
 
@@ -169,10 +192,10 @@ class Neuron {
         srand((unsigned)time(NULL));
         for (int i = 0; i < nin; i++) {
             double rand_weight = (double)rand() / RAND_MAX;
-            this->w.push_back(new Value(rand_weight));
+            this->w.push_back(new Value(rand_weight, "w" + to_string(i + 1)));
         }
         double rand_bias = (double)rand() / RAND_MAX;
-        this->b = new Value(rand_bias);
+        this->b = new Value(rand_bias, "b");
     }
 
     vector<Value *> parameters() {
@@ -180,14 +203,20 @@ class Neuron {
         ret.push_back(this->b);
         return ret;
     }
-
-    Value &forward_prop(vector<Value> x) {
+    Value &forward_prop(vector<Value *> x) {
         assert(x.size() == this->w.size());
         Value *activation = new Value(0.0);
-        for (int i = 0; i < x.size(); i++) {
-            *activation = *activation + *(this->w[i]) * x[i];
+        vector<Value *> temps(x.size() + 1);
+        for (int i = 0; i <= x.size(); i++) {
+            temps[i] = new Value(0.0);
         }
-        // *activation = *activation + *(this->b);
+        for (int i = 0; i < x.size(); i++) {
+            *temps[i + 1] = *temps[i] + *(this->w[i]) * (*x[i]);
+        }
+        *activation = *temps[x.size()] + *(this->b);
+        for (int i = 0; i <= x.size(); i++) {
+            temps[i]->label = "temps[" + to_string(i) + "]";
+        }
         if (this->nonlin) {
             *activation = activation->ReLU();
         }
@@ -197,50 +226,54 @@ class Neuron {
 
 void test1() {
     Value x1 = Value(2.0, "x1");
-    Value x2 = Value(5.0, "x2");
-    Value x3 = Value(4.0, "x3");
+    // Value x2 = Value(5.0, "x2");
+    // Value x3 = Value(4.0, "x3");
 
     Value w1 = Value(4.0, "w1");
-    Value w2 = Value(3.0, "w2");
-    Value w3 = Value(-1.0, "w3");
+    // Value w2 = Value(3.0, "w2");
+    // Value w3 = Value(-1.0, "w3");
+    // Value b = Value(1.0, "b");
 
-    Value z = (x1 * w1 + x2 * w2 + x3 * w3).ReLU();
+    Value z = (x1 * w1);
+    cout << z << '\n';
     z.backward();
 
+    cout << "z.grad: " << z.grad << '\n';
     cout << "x1.grad: " << x1.grad << '\n';
-    cout << "x2.grad: " << x2.grad << '\n';
-    cout << "x3.grad: " << x3.grad << '\n';
     cout << "w1.grad: " << w1.grad << '\n';
-    cout << "w2.grad: " << w2.grad << '\n';
-    cout << "w3.grad: " << w3.grad << '\n';
+    // cout << "w2.grad: " << w2.grad << '\n';
+    // cout << "w3.grad: " << w3.grad << '\n';
+    // cout << "b.grad: " << b.grad << '\n';
 }
 
 void test2() {
-    Value x1 = Value(2.0, "x1");
-    Value x2 = Value(5.0, "x2");
-    Value x3 = Value(4.0, "x3");
+    Neuron n = Neuron(3, false);
+    n.parameters()[0]->data = 4.0;
+    n.parameters()[1]->data = 3.0;
+    n.parameters()[2]->data = -1.0;
+    n.parameters()[3]->data = 1.0;
 
-    Value w1 = Value(4.0, "w1");
-    Value w2 = Value(3.0, "w2");
-    Value w3 = Value(-1.0, "w3");
+    vector<Value *> input_data = {
+        new Value(2.0, "x1"),
+        new Value(5.0, "x2"),
+        new Value(4.0, "x3")};
 
-    Value z = Value(0);
-    z = (z + x1 * w1);
-    z = (z + x2 * w2);
-    z = (z + x3 * w3);
+    Value z = n.forward_prop(input_data);
+    cout << z << '\n';
+    for (auto c : z.prev) {
+        cout << c->label << ' ';
+    }
+    cout << '\n';
     z.backward();
-    cout << z.prev[0]->label << ' ' << z.prev[1]->label << '\n';
+    cout << "--------------------------------------------------\n";
 
-    cout << "x1.grad: " << x1.grad << '\n';
-    cout << "x2.grad: " << x2.grad << '\n';
-    cout << "x3.grad: " << x3.grad << '\n';
-    cout << "w1.grad: " << w1.grad << '\n';
-    cout << "w2.grad: " << w2.grad << '\n';
-    cout << "w3.grad: " << w3.grad << '\n';
+    for (auto p : n.parameters()) {
+        cout << p->label << ' ' << p->data << ' ' << p->grad << '\n';
+    }
 }
 
 int main() {
-    test1();
-    cout << "-------------------------\n";
+    // test1();
+    // cout << "----------------\n";
     test2();
 }

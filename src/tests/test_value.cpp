@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void test0() {
+void test_value_0() {
     Value z1 = Value(0, "z1");
     Value a1 = Value(2.0, "a1");
     Value b1 = Value(3.0, "b1");
@@ -25,7 +25,7 @@ void test0() {
     cout << z2 << '\n';
 }
 
-void test1() {
+void test_value_1() {
     Value x1 = Value(2.0, "x1");
     Value x2 = Value(5.0, "x2");
     Value x3 = Value(4.0, "x3");

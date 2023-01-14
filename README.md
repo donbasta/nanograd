@@ -4,18 +4,16 @@ An implementation of autograd engine in c++
 
 ## Todolist
 
-- [x] make unit tests
-  - [ ] test the operators
-    - test ReLU
-    - test Sigmoid
-    - test Softmax
-    - test subtraction, division, power
-- [ ] implement some activation functions (relu, sigmoid, softmax, etc.)
-- [ ] create train pipeline end-to-end
-  - [ ] implement optimizers (basic, sgd, adam)
-  - [ ] implement scoring, etc
-  - [ ] implement custom training loop (weight update, backprop, epoch loops, batch)
-  - [ ] model performance check
+- [ ] benerin makefilenya biar ga cluttered
+- [ ] generate data (already defined in utils/gen_data.h tinggal di-implement)
+- [ ] implement relu, tanh, and sigmoid, test then
+- [ ] test MLP
+- [ ] implement optimizers and loss functions
+- [ ] create training pipeline with a generated data
+- [ ] visualize training process and accuracy
+
+## Cool to have
+
 - [ ] implement convolutional layer
 - [ ] train mnist digit
 - [ ] implement RNN, LSTM, GRU

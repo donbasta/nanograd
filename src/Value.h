@@ -4,7 +4,6 @@ using namespace std;
 
 #ifndef VALUE_H
 #define VALUE_H
-#endif
 
 class Value {
    private:
@@ -26,6 +25,7 @@ class Value {
     string get_op() const { return this->op; }
     vector<Value *> get_prev() const { return this->prev; }
 
+    void set_data(double new_data) { this->data = new_data; }
     void set_label(string label) { this->label = label; }
     void set_grad(double g) { this->grad = g; }
     void set_prev(const vector<Value *> &ve) { this->prev = ve; }
@@ -57,3 +57,5 @@ class Value {
 
     void backward();
 };
+
+#endif

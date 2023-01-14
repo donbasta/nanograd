@@ -6,6 +6,7 @@
     "*.toml": "toml",
     "iostream": "cpp",
     "charconv": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "memory_resource": "cpp"
   }
 }

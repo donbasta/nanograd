@@ -3,7 +3,6 @@ using namespace std;
 
 #ifndef NEURON_H
 #define NEURON_H
-#endif
 
 #include "Value.h"
 
@@ -18,3 +17,5 @@ class Neuron {
     vector<Value *> get_parameters();
     Value *forward_prop(vector<Value *> x);
 };
+
+#endif

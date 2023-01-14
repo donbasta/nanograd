@@ -3,7 +3,6 @@ using namespace std;
 
 #ifndef LAYER_H
 #define LAYER_H
-#endif
 
 #include "Neuron.h"
 
@@ -19,3 +18,5 @@ class Layer {
     vector<vector<Value *>> get_parameters();
     vector<Value *> forward_prop(vector<Value *> data);
 };
+
+#endif

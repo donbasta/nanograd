@@ -4,7 +4,12 @@ An implementation of autograd engine in c++
 
 ## Todolist
 
-- [ ] make unit tests
+- [x] make unit tests
+  - [ ] test the operators
+    - test ReLU
+    - test Sigmoid
+    - test Softmax
+    - test subtraction, division, power
 - [ ] implement some activation functions (relu, sigmoid, softmax, etc.)
 - [ ] create train pipeline end-to-end
   - [ ] implement optimizers (basic, sgd, adam)

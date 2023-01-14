@@ -3,7 +3,6 @@ using namespace std;
 
 #ifndef MLP_H
 #define MLP_H
-#endif
 
 #include "Layer.h"
 
@@ -16,3 +15,5 @@ class MLP {
     vector<vector<vector<Value *>>> get_parameters();
     vector<Value *> forward_prop(vector<Value *> data);
 };
+
+#endif

@@ -34,8 +34,13 @@ class Value {
     void backward();
 
     Value &ReLU();
+    Value &Sigmoid();
+    Value &operator-();
+    Value &inv();
     friend Value &operator*(Value &self, Value &other);
     friend Value &operator+(Value &self, Value &other);
+    friend Value &operator-(Value &self, Value &other);
+    friend Value &operator/(Value &self, Value &other);
 };
 
 Value *sum(vector<Value *> values);

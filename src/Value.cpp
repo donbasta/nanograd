@@ -2,6 +2,7 @@
 using namespace std;
 
 #include "Value.h"
+#include "utils/double_utils.h"
 
 Value::Value() : data(0.0), grad(0.0) {}
 Value::Value(double data) : data(data), grad(0.0), label(""), op("") {}
@@ -26,16 +27,29 @@ Value &operator*(Value &self, Value &other) {
     return *new_value;
 }
 
+Value &operator-(Value &self, Value &other) {
+    return self + (-other);
+}
+
+Value &operator/(Value &self, Value &other) {
+    return self * other.inv();
+}
+
 void Value::_backward() {
     if (op == "+") {
-        for (auto c : this->prev) {
-            c->grad += this->grad;
-        }
+        this->prev[0]->grad += this->grad;
+        this->prev[1]->grad += this->grad;
     } else if (op == "*") {
         this->prev[0]->grad += this->prev[1]->data * this->grad;
         this->prev[1]->grad += this->prev[0]->data * this->grad;
     } else if (op == "ReLU") {
         this->prev[0]->grad += this->grad * (this->prev[0]->data > 0.0);
+    } else if (op == "Sigmoid") {
+        this->prev[0]->grad += this->grad * this->data * (1.0 - this->data);
+    } else if (op == "neg") {
+        this->prev[0]->grad += (-this->grad);
+    } else if (op == "inv") {
+        this->prev[0]->grad += -(this->grad * this->data * this->data);
     }
 }
 
@@ -43,6 +57,35 @@ Value &Value::ReLU() {
     double new_data = max(0.0, this->data);
     string new_label = "ReLU(" + this->label + ")";
     Value *new_value = new Value(new_data, new_label, "ReLU");
+    new_value->prev = vector{this};
+
+    return *new_value;
+}
+
+Value &Value::Sigmoid() {
+    double new_data = (double)1.0 / (1 + exp(-this->data));
+    string new_label = "Sigmoid(" + this->label + ")";
+    Value *new_value = new Value(new_data, new_label, "Sigmoid");
+    new_value->prev = vector{this};
+
+    return *new_value;
+}
+
+Value &Value::operator-() {
+    double new_data = -this->data;
+    string new_label = "neg(" + this->label + ")";
+    Value *new_value = new Value(new_data, new_label, "neg");
+    new_value->prev = vector{this};
+
+    return *new_value;
+}
+
+Value &Value::inv() {
+    assert(!is_equal(this->get_data(), 0.0));  // Division by zero error
+
+    double new_data = (double)1.0 / this->data;
+    string new_label = "inv(" + this->label + ")";
+    Value *new_value = new Value(new_data, new_label, "inv");
     new_value->prev = vector{this};
 
     return *new_value;

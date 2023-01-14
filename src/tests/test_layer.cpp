@@ -2,47 +2,33 @@
 using namespace std;
 
 #include "../Layer.h"
-#include "../Neuron.h"
 #include "../Value.h"
 #include "../utils/double_utils.h"
 
 void test_layer_1() {
-    Layer l = Layer(5, 2, false);
+    Layer l = Layer(3, 2, false);
 
     vector<Value*> input_data = {
         new Value(2.0, "x1"),
-        new Value(5.0, "x2"),
-        new Value(4.0, "x3"),
-        new Value(-1.0, "x3"),
+        new Value(-1.0, "x2"),
         new Value(3.0, "x3"),
     };
 
     vector<Value*> output_data = l.forward_prop(input_data);
+    Value* sum_output = sum(output_data);
+    sum_output->backward();
 
-    Neuron n = Neuron(3, false);
-    n.get_parameters()[0]->set_data(4.0);
-    n.get_parameters()[1]->set_data(3.0);
-    n.get_parameters()[2]->set_data(-1.0);
-    n.get_parameters()[3]->set_data(1.0);
+    assert(output_data.size() == 2);
+    assert(l.get_parameters()[0][0]->get_grad() == 2.0);
+    assert(l.get_parameters()[0][1]->get_grad() == -1.0);
+    assert(l.get_parameters()[0][2]->get_grad() == 3.0);
+    assert(l.get_parameters()[0][3]->get_grad() == 1.0);
 
-    vector<Value*> input_data = {
-        new Value(2.0, "x1"),
-        new Value(5.0, "x2"),
-        new Value(4.0, "x3"),
-    };
-
-    Value* z = n.forward_prop(input_data);
-    z->backward();
-
-    assert(is_equal(n.get_parameters()[0]->get_grad(), 2.0));
-    assert(is_equal(n.get_parameters()[1]->get_grad(), 5.0));
-    assert(is_equal(n.get_parameters()[2]->get_grad(), 4.0));
-    assert(is_equal(n.get_parameters()[3]->get_grad(), 1.0));
-    cout << "test_neuron_1 passed!\n";
+    cout << "test_layer_1 passed!\n";
 }
 
-void run_all_neuron_test() {
-    test_neuron_1();
+void run_all_layer_test() {
+    test_layer_1();
     // test_neuron_2();
     // test_neuron_3();
     // test_neuron_4();

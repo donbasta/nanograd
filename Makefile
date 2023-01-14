@@ -41,8 +41,7 @@ clean:
 
 test: build-test run-test
 
-build-test: utils Value.o Neuron.o Layer.o MLP.o test_neuron.o test_value.o all_test.o all-test 
-	$(CC) $(CFLAGS) -c $(SOURCE_DIR)/MLP.cpp -o $(OBJECT_DIR)/MLP.o
+build-test: utils Value.o Neuron.o Layer.o MLP.o test_neuron.o test_value.o test_layer.o all_test.o all-test 
 
 utils: $(UTILS_DIR)/double_utils.h
 	$(CC) $(CFLAGS) -c $(UTILS_DIR)/double_utils.cpp -o $(TEST_OBJ_DIR)/double_utils.o
@@ -53,11 +52,14 @@ test_neuron.o: $(TEST_DIR)/test_neuron.h $(SOURCE_DIR)/Neuron.h $(SOURCE_DIR)/Va
 test_value.o: $(TEST_DIR)/test_value.h $(SOURCE_DIR)/Value.h $(UTILS_DIR)/double_utils.h
 	$(CC) $(CFLAGS) -c $(TEST_DIR)/test_value.cpp -o $(TEST_OBJ_DIR)/test_value.o
 
+test_layer.o: $(TEST_DIR)/test_layer.h $(SOURCE_DIR)/Layer.h $(SOURCE_DIR)/Value.h $(UTILS_DIR)/double_utils.h
+	$(CC) $(CFLAGS) -c $(TEST_DIR)/test_layer.cpp -o $(TEST_OBJ_DIR)/test_layer.o
+
 all_test.o: $(TEST_DIR)/test_neuron.h $(TEST_DIR)/test_value.h
 	$(CC) $(CFLAGS) -c $(TEST_DIR)/all_test.cpp -o $(TEST_OBJ_DIR)/all_test.o
 
 all-test: $(TEST_DIR)/test_neuron.h $(TEST_DIR)/test_value.h
-	$(CC) $(CFLAGS) -o $(TEST_BIN_DIR)/test $(TEST_OBJ_DIR)/all_test.o $(TEST_OBJ_DIR)/test_value.o $(TEST_OBJ_DIR)/test_neuron.o $(OBJECT_DIR)/Value.o $(OBJECT_DIR)/Neuron.o $(OBJECT_DIR)/Layer.o $(OBJECT_DIR)/MLP.o $(TEST_OBJ_DIR)/double_utils.o
+	$(CC) $(CFLAGS) -o $(TEST_BIN_DIR)/test $(TEST_OBJ_DIR)/all_test.o $(TEST_OBJ_DIR)/test_value.o $(TEST_OBJ_DIR)/test_neuron.o $(TEST_OBJ_DIR)/test_layer.o $(OBJECT_DIR)/Value.o $(OBJECT_DIR)/Neuron.o $(OBJECT_DIR)/Layer.o $(OBJECT_DIR)/MLP.o $(TEST_OBJ_DIR)/double_utils.o
 
 run-test: 
 	$(TEST_BIN_DIR)/test

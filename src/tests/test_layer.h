@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
-#ifndef TEST_NEURON_H
-#define TEST_NEURON_H
+#ifndef TEST_LAYER_H
+#define TEST_LAYER_H
 
 void test_layer_1();
 

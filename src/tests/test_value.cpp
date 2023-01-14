@@ -58,10 +58,28 @@ void test_value_4() {
     cout << "test_value_4 passed!\n";
 }
 
+void test_value_sum() {
+    vector<Value*> input_data = {
+        new Value(2.0, "x1"),
+        new Value(5.0, "x2"),
+        new Value(4.0, "x3"),
+        new Value(-1.0, "x3"),
+        new Value(3.0, "x3"),
+    };
+
+    Value* sum_all = sum(input_data);
+    sum_all->backward();
+    for (auto v : input_data) {
+        assert(is_equal(v->get_grad(), 1.0));
+    }
+    assert(is_equal(sum_all->get_data(), 13.0));
+    cout << "test_value_sum passed!\n";
+}
+
 void run_all_value_test() {
     test_value_1();
     test_value_2();
     test_value_3();
     test_value_4();
-    // test_value_5();
+    test_value_sum();
 }

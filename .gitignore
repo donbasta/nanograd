@@ -6,3 +6,6 @@
 
 *bin/
 *obj/
+
+# object file
+*.o

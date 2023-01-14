@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "../Layer.h"
 #include "../Value.h"
+#include "../layers/Layer.h"
 #include "../utils/double_utils.h"
 
 void test_layer_1() {

@@ -41,9 +41,9 @@ vector<pair<double, double>> gen_2d_linear_data_classification(int num_data, dou
 
 void get_statistic(vector<pair<double, double>> data) {}
 
-int main() {
-    vector<pair<double, double>> haha = gen_2d_linear_data_regression(10, 2.0, 1.0);
-    for (auto c : haha) {
-        cout << c.first << ' ' << c.second << '\n';
-    }
-}
+// int main() {
+//     vector<pair<double, double>> haha = gen_2d_linear_data_regression(10, 2.0, 1.0);
+//     for (auto c : haha) {
+//         cout << c.first << ' ' << c.second << '\n';
+//     }
+// }

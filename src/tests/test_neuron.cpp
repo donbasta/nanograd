@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "../Neuron.h"
 #include "../Value.h"
+#include "../layers/Neuron.h"
 #include "../utils/double_utils.h"
 
 void test_neuron_1() {

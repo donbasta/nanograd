@@ -4,7 +4,7 @@ using namespace std;
 #ifndef NEURON_H
 #define NEURON_H
 
-#include "Value.h"
+#include "../Value.h"
 
 class Neuron {
    private:

@@ -41,6 +41,24 @@ vector<pair<double, double>> gen_2d_linear_data_classification(int num_data, dou
 
 void get_statistic(vector<pair<double, double>> data) {}
 
+pair<vector<pair<double, double>>, vector<pair<double, double>>> train_test_split(vector<pair<double, double>>& data, double train_size) {
+    vector<pair<double, double>> train;
+    vector<pair<double, double>> test;
+    random_shuffle(data.begin(), data.end());
+    int sep = int(train_size * data.size());
+    for (int i = 0; i < sep; i++) {
+        train.push_back(data[i]);
+    }
+    for (int i = sep; i < (int)data.size(); i++) {
+        test.push_back(data[i]);
+    }
+    return make_pair(train, test);
+}
+
+// visualize reports (like training performance, data, etc)
+void visualize(vector<pair<double, double>> data) {
+}
+
 // int main() {
 //     vector<pair<double, double>> haha = gen_2d_linear_data_regression(10, 2.0, 1.0);
 //     for (auto c : haha) {

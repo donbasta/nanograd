@@ -20,10 +20,14 @@ To make training faster, there are some optimizers available to customize the le
 - [ ] create abstract class Layer
 - [ ] create abstarct class Model
 - [ ] allow model to read weights from external file
+- [ ] give proper documentation to the code
+- [ ] structure the code yg baik dan benar lol (unit test, etc)
+- [ ] kaidah cpp programming yg baik dan benar (not using bits/stdc++.h, not using namespace std lgsg)
+- [ ] change double_utils to number_utils, and gen_data to data_utils
 
 ## Cool to have
 
-- [ ] implement convolutional layer and simple CNN model
+- [ ] implement convolutional layer and simple convnet based model
 - [ ] train mnist digit
 - [ ] implement recurrent layer and RNN, LSTM, GRU
 - [ ] train tweet sentiment

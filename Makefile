@@ -38,6 +38,14 @@ linear-regression: utils losses Value.o Neuron.o Layer.o MLP.o linear-regression
 linear-regression.o:
 	$(CXX) $(CXXFLAGS) -c $(SOURCE_DIR)/bins/linear-regression.cpp -o $(OBJECT_DIR)/linear-regression.o
 
+quadratic-regression: utils losses Value.o Neuron.o Layer.o MLP.o quadratic-regression.o
+	mkdir -p $(BINARY_DIR)
+	$(CXX) $(CXXFLAGS) -o $(BINARY_DIR)/quadratic-regression $(OBJECT_DIR)/quadratic-regression.o $(OBJECT_DIR)/Value.o $(OBJECT_DIR)/Neuron.o $(OBJECT_DIR)/Layer.o $(OBJECT_DIR)/MLP.o $(OBJECT_DIR)/number_utils.o $(OBJECT_DIR)/data_utils.o $(OBJECT_DIR)/mean_squared_error.o
+	$(BINARY_DIR)/quadratic-regression
+
+quadratic-regression.o:
+	$(CXX) $(CXXFLAGS) -c $(SOURCE_DIR)/bins/quadratic-regression.cpp -o $(OBJECT_DIR)/quadratic-regression.o
+
 # Libraries and Classes
 
 Value.o: $(SOURCE_DIR)/engines/Value.h

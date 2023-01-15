@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "../Value.h"
+#include "../engines/Value.h"
 #include "../layers/Neuron.h"
 #include "../utils/double_utils.h"
 
@@ -12,12 +12,17 @@ void test_neuron_1() {
     n.get_parameters()[2]->set_data(-1.0);
     n.get_parameters()[3]->set_data(1.0);
 
-    vector<Value*> input_data = {new Value(2.0, "x1"),
-                                 new Value(5.0, "x2"),
-                                 new Value(4.0, "x3")};
+    vector<vector<Value*>> input_data = {
+        vector<Value*>{
+            new Value(2.0, "x1"),
+            new Value(5.0, "x2"),
+            new Value(4.0, "x3"),
+        },
+    };
 
-    Value* z = n.forward_prop(input_data);
-    z->backward();
+    vector<Value*> z = n.forward_prop(input_data);
+    assert(z.size() == 1);
+    z[0]->backward();
 
     assert(is_equal(n.get_parameters()[0]->get_grad(), 2.0));
     assert(is_equal(n.get_parameters()[1]->get_grad(), 5.0));

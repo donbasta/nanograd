@@ -1,28 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "../Value.h"
+#include "../engines/Value.h"
 #include "../layers/Layer.h"
 #include "../utils/double_utils.h"
 
 void test_layer_1() {
     Layer l = Layer(3, 2, false);
 
-    vector<Value*> input_data = {
-        new Value(2.0, "x1"),
-        new Value(-1.0, "x2"),
-        new Value(3.0, "x3"),
+    vector<vector<Value*>> input_data = {
+        vector<Value*>{
+            new Value(2.0, "x1"),
+            new Value(-1.0, "x2"),
+            new Value(3.0, "x3"),
+        },
     };
 
-    vector<Value*> output_data = l.forward_prop(input_data);
-    Value* sum_output = sum(output_data);
+    vector<vector<Value*>> output_data = l.forward_prop(input_data);
+    assert(output_data.size() == input_data.size());
+    assert(output_data.size() == 1);
+    Value* sum_output = sum(output_data[0]);
     sum_output->backward();
 
-    assert(output_data.size() == 2);
-    assert(l.get_parameters()[0][0]->get_grad() == 2.0);
-    assert(l.get_parameters()[0][1]->get_grad() == -1.0);
-    assert(l.get_parameters()[0][2]->get_grad() == 3.0);
-    assert(l.get_parameters()[0][3]->get_grad() == 1.0);
+    assert(output_data[0].size() == 2);
+    assert(l.get_parameters()[0]->get_grad() == 2.0);
+    assert(l.get_parameters()[1]->get_grad() == -1.0);
+    assert(l.get_parameters()[2]->get_grad() == 3.0);
+    assert(l.get_parameters()[3]->get_grad() == 1.0);
 
     cout << "test_layer_1 passed!\n";
 }

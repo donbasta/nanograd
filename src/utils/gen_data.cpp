@@ -2,6 +2,7 @@
 using namespace std;
 
 #include "double_utils.h"
+#include "gen_data.h"
 
 // we will only generate data with x values between L and R as described below;
 const double L = 0;
@@ -53,6 +54,25 @@ pair<vector<pair<double, double>>, vector<pair<double, double>>> train_test_spli
         test.push_back(data[i]);
     }
     return make_pair(train, test);
+}
+
+vector<vector<vector<Value*>>> prepare_data(int num_data) {
+    vector<pair<double, double>> data_double = gen_2d_linear_data_regression(num_data, 2.0, 3.0);
+    pair<vector<pair<double, double>>, vector<pair<double, double>>> data_splitted_double = train_test_split(data_double, 0.8);
+    vector<pair<double, double>> train_data_double = data_splitted_double.first;
+    vector<pair<double, double>> validation_data_double = data_splitted_double.second;
+
+    vector<vector<Value*>> x_train, y_train, x_test, y_test;
+    for (auto d : train_data_double) {
+        x_train.push_back(vector<Value*>{new Value(d.first)});
+        y_train.push_back(vector<Value*>{new Value(d.second)});
+    }
+    for (auto d : validation_data_double) {
+        x_test.push_back(vector<Value*>{new Value(d.first)});
+        y_test.push_back(vector<Value*>{new Value(d.second)});
+    }
+
+    return vector<vector<vector<Value*>>>{x_train, y_train, x_test, y_test};
 }
 
 // visualize reports (like training performance, data, etc)

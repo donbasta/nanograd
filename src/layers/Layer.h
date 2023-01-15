@@ -15,8 +15,10 @@ class Layer {
 
    public:
     Layer(int nin, int nout, bool nonlin);
-    vector<vector<Value *>> get_parameters();
-    vector<Value *> forward_prop(vector<Value *> data);
+    vector<vector<Value *>> _get_parameters();
+    vector<Value *> get_parameters();
+    vector<Value *> _forward_prop(vector<Value *> data);
+    vector<vector<Value *>> forward_prop(vector<vector<Value *>> data);
 };
 
 #endif

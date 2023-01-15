@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#include "../utils/double_utils.h"
 #include "Value.h"
-#include "utils/double_utils.h"
 
 Value::Value() : data(0.0), grad(0.0) {}
 Value::Value(double data) : data(data), grad(0.0), label(""), op("") {}

@@ -19,7 +19,7 @@ vector<Value *> Neuron::get_parameters() {
     return ret;
 }
 
-Value *Neuron::forward_prop(vector<Value *> data) {
+Value *Neuron::_forward_prop(vector<Value *> data) {
     int sz = data.size();
     assert(sz == (int)this->w.size());
     Value *activation = new Value(0.0);
@@ -38,4 +38,12 @@ Value *Neuron::forward_prop(vector<Value *> data) {
         *activation = activation->ReLU();
     }
     return activation;
+}
+
+vector<Value *> Neuron::forward_prop(vector<vector<Value *>> x) {
+    vector<Value *> ret;
+    for (auto x_i : x) {
+        ret.push_back(this->_forward_prop(x_i));
+    }
+    return ret;
 }

@@ -12,8 +12,11 @@ class MLP {
 
    public:
     MLP(int nin, vector<int> nouts, vector<bool> nonlins);
-    vector<vector<vector<Value *>>> get_parameters();
-    vector<Value *> forward_prop(vector<Value *> data);
+    vector<vector<Value *>> _get_parameters();
+    vector<Value *> get_parameters();
+    vector<Value *> _forward_prop(vector<Value *> data);
+    vector<vector<Value *>> forward_prop(vector<vector<Value *>> data);
+    void zero_grad();
 };
 
 #endif

@@ -11,6 +11,6 @@ vector<pair<double, double>> gen_2d_linear_data_classification(int num_data, dou
 void get_statistic(vector<pair<double, double>> data);
 pair<vector<pair<double, double>>, vector<pair<double, double>>> train_test_split(const vector<pair<double, double>>& data, double train_size);
 void visualize(vector<pair<double, double>> data);
-vector<vector<vector<Value*>>> prepare_data(int num_data);
+vector<vector<vector<Value*>>> prepare_data(string data_type, int num_data);
 
 #endif

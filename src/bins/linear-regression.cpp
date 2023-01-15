@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     // prepare the dataset (randomly generated, 1d for now)
     int num_data = 100000;
-    auto data = prepare_data(num_data);
+    auto data = prepare_data("linear_1d", num_data);
     auto x_train = data[0];
     auto y_train = data[1];
     auto x_test = data[2];

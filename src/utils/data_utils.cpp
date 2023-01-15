@@ -56,8 +56,14 @@ pair<vector<pair<double, double>>, vector<pair<double, double>>> train_test_spli
     return make_pair(train, test);
 }
 
-vector<vector<vector<Value*>>> prepare_data(int num_data) {
-    vector<pair<double, double>> data_double = gen_2d_linear_data_regression(num_data, 2.0, 3.0);
+vector<vector<vector<Value*>>> prepare_data(string data_type, int num_data) {
+    vector<pair<double, double>> data_double;
+    if (data_type == "linear_1d") {
+        data_double = gen_2d_linear_data_regression(num_data, 2.0, 3.0);  // y = 2x + 3
+    } else if (data_type == "quadratic_1d") {
+        data_double = gen_2d_quadratic_data_regression(num_data, 1.0, 3.0, -1.0);  // y = x^2 + 3x - 1
+    }
+
     pair<vector<pair<double, double>>, vector<pair<double, double>>> data_splitted_double = train_test_split(data_double, 0.8);
     vector<pair<double, double>> train_data_double = data_splitted_double.first;
     vector<pair<double, double>> validation_data_double = data_splitted_double.second;

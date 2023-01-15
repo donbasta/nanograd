@@ -3,7 +3,7 @@ using namespace std;
 
 #include "../engines/Value.h"
 #include "../layers/Neuron.h"
-#include "../utils/double_utils.h"
+#include "../utils/number_utils.h"
 
 void test_neuron_1() {
     Neuron n = Neuron(3, false);

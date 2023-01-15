@@ -2,7 +2,7 @@
 using namespace std;
 
 #include "../engines/Value.h"
-#include "../utils/double_utils.h"
+#include "../utils/number_utils.h"
 
 void test_value_1() {
     Value z1 = Value(0, "z1");

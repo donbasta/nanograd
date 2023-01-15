@@ -4,7 +4,7 @@ using namespace std;
 #include "../engines/Value.h"
 #include "../layers/MLP.h"
 #include "../losses/losses.h"
-#include "../utils/gen_data.h"
+#include "../utils/data_utils.h"
 
 int main() {
     // prepare the dataset (randomly generated, 1d for now)

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "../utils/double_utils.h"
+#include "../utils/number_utils.h"
 #include "Value.h"
 
 Value::Value() : data(0.0), grad(0.0) {}

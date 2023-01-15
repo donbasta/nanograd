@@ -3,7 +3,7 @@ using namespace std;
 
 #include "../engines/Value.h"
 #include "../layers/Layer.h"
-#include "../utils/double_utils.h"
+#include "../utils/number_utils.h"
 
 void test_layer_1() {
     Layer l = Layer(3, 2, false);

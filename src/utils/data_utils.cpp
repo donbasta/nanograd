@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include "double_utils.h"
-#include "gen_data.h"
+#include "data_utils.h"
+#include "number_utils.h"
 
 // we will only generate data with x values between L and R as described below;
 const double L = -1;

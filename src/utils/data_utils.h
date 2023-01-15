@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
-#ifndef GEN_DATA_H
-#define GEN_DATA_H
+#ifndef DATA_UTILS_H
+#define DATA_UTILS_H
 
 #include "../engines/Value.h"
 

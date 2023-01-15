@@ -12,5 +12,6 @@ void get_statistic(vector<pair<double, double>> data);
 pair<vector<pair<double, double>>, vector<pair<double, double>>> train_test_split(const vector<pair<double, double>>& data, double train_size);
 void visualize(vector<pair<double, double>> data);
 vector<vector<vector<Value*>>> prepare_data(string data_type, int num_data);
+void save_graphics(string filename);
 
 #endif

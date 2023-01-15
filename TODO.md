@@ -20,7 +20,7 @@
 - [ ] use numcpp [here](https://dpilger26.github.io/NumCpp/doxygen/html/index.html) for the values and models...
   - [ ] check whether the matrix multiplication is optimized there
 
-## Cool to have (probably impossible and not worth trying)
+## Cool to have (probably impossible and not worth trying, memory issue is hard)
 
 - [ ] implement convolutional layer and simple convnet based model
 - [ ] train mnist digit

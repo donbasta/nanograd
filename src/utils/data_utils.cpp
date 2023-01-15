@@ -2,7 +2,10 @@
 using namespace std;
 
 #include "data_utils.h"
+// #include "matplotlibcpp.h"
 #include "number_utils.h"
+
+// namespace plt = matplotlibcpp;
 
 // we will only generate data with x values between L and R as described below;
 const double L = -1;
@@ -60,6 +63,7 @@ vector<vector<vector<Value*>>> prepare_data(string data_type, int num_data) {
     vector<pair<double, double>> data_double;
     if (data_type == "linear_1d") {
         data_double = gen_2d_linear_data_regression(num_data, 2.0, 3.0);  // y = 2x + 3
+        // visualize(data_double);
     } else if (data_type == "quadratic_1d") {
         data_double = gen_2d_quadratic_data_regression(num_data, 1.0, 3.0, -1.0);  // y = x^2 + 3x - 1
     }
@@ -83,6 +87,16 @@ vector<vector<vector<Value*>>> prepare_data(string data_type, int num_data) {
 
 // visualize reports (like training performance, data, etc)
 void visualize(vector<pair<double, double>> data) {
+    int sz = data.size();
+    for (int i = 0; i < sz; i++) {
+        // plt::plot({data[i].first}, {data[i].second}, "bo");
+    }
+    save_graphics("lol");
+}
+
+void save_graphics(string filename) {
+    // plt::title("visualize data 2d");
+    // plt::save("./viz/" + filename + ".png");
 }
 
 // int main() {

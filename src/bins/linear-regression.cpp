@@ -17,8 +17,8 @@ int main() {
 
     // architecture: 2 layers, where the hidden layer consists of 3 neurons :D
     // MLP model_linear = MLP(1, vector<int>{3, 1}, vector<bool>{false, false});
-    MLP model_linear = MLP(1, vector<int>{1}, vector<bool>{false});
-    int epoch = 1;
+    MLP model_linear = MLP(1, vector<int>{3, 1}, vector<bool>{false, false});
+    int epoch = 3;
     double learning_rate = 0.0001;
 
     // batch the dataset, might move this to data_utils later

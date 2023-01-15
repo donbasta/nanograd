@@ -16,6 +16,10 @@ To make training faster, there are some optimizers available to customize the le
 There are several main programs in src/bin folder, and there is a makefile rule for each main program.
 For example, to run linear regression, just run `make linear-regression`
 
+### Common issues
+
+1.  When running matplotlib for visualization, the header Python.h not found
+
 ## Common QnA about Deep Learning
 
 1. **Q:** Why does a combination of matrix operations (multiplications) can transform a space (training features) into another space (target features) well? (i.e. solve a specific ML task)

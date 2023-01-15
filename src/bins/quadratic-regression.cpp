@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     // prepare the dataset (randomly generated, 1d for now)
-    int num_data = 1000;
+    int num_data = 10000;
     auto data = prepare_data("quadratic_1d", num_data);
     auto x_train = data[0];
     auto y_train = data[1];
@@ -18,7 +18,7 @@ int main() {
     // architecture: 2 layers, where the hidden layer consists of 3 neurons :D
     // MLP model_linear = MLP(1, vector<int>{3, 1}, vector<bool>{false, false});
     MLP model = MLP(1, vector<int>{3, 1}, vector<bool>{false, true});
-    int epoch = 50;
+    int epoch = 5;
     double learning_rate = 0.0001;
 
     // batch the dataset, might move this to data_utils later
@@ -53,10 +53,10 @@ int main() {
             Value* loss = mean_squared_error(predict, y);
 
             if (bat % 5 == 0) {
-                for (Value* p : model.get_parameters()) {
-                    cout << "[" << p->get_data() << "," << p->get_grad() << "]--";
-                }
-                cout << '\n';
+                // for (Value* p : model.get_parameters()) {
+                //     cout << "[" << p->get_data() << "," << p->get_grad() << "]--";
+                // }
+                // cout << '\n';
                 cout << setprecision(10) << "loss at epoch " << ep << " and batch " << bat << " is " << loss->get_data() << '\n';
             }
 

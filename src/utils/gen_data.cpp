@@ -5,9 +5,9 @@ using namespace std;
 #include "gen_data.h"
 
 // we will only generate data with x values between L and R as described below;
-const double L = 0;
-const double R = 100;
-const double NOISE_AMPLITUDE = 2;
+const double L = -1;
+const double R = 1;
+const double NOISE_AMPLITUDE = 0.1;
 
 // generate noisy data which is modeled by plane y = ax + b
 vector<pair<double, double>> gen_2d_linear_data_regression(int num_data, double a, double b) {

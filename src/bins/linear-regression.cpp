@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
     // prepare the dataset (randomly generated, 1d for now)
-    int num_data = 1e5;
+    int num_data = 100000;
     auto data = prepare_data(num_data);
     auto x_train = data[0];
     auto y_train = data[1];
@@ -16,9 +16,10 @@ int main() {
     auto y_test = data[3];
 
     // architecture: 2 layers, where the hidden layer consists of 3 neurons :D
-    MLP model_linear = MLP(1, vector<int>{3, 1}, vector<bool>{false, false});
-    int epoch = 50;
-    double learning_rate = 0.001;
+    // MLP model_linear = MLP(1, vector<int>{3, 1}, vector<bool>{false, false});
+    MLP model_linear = MLP(1, vector<int>{1}, vector<bool>{false});
+    int epoch = 1;
+    double learning_rate = 0.0001;
 
     // batch the dataset, might move this to data_utils later
     vector<pair<vector<vector<Value*>>, vector<vector<Value*>>>> batches;
@@ -51,13 +52,13 @@ int main() {
             auto predict = model_linear.forward_prop(x);
             Value* loss = mean_squared_error(predict, y);
 
-            if (bat % 1000 == 0) {
+            if (bat % 30 == 0) {
                 cout << setprecision(10) << "loss at epoch " << ep << " and batch " << bat << " is " << loss->get_data() << '\n';
             }
 
             loss->backward();
 
-            for (auto p : model_linear.get_parameters()) {
+            for (Value* p : model_linear.get_parameters()) {
                 // learning step; might use some optimizers here...
                 double updated_weight = p->get_data() - learning_rate * p->get_grad();
                 p->set_data(updated_weight);

@@ -10,3 +10,7 @@ Calculus gives us a way to find a direction which is directed toward a local min
 Hence we move toward that direction, and how big we move is ruled by a hyperparameter called learning rate.
 The value of the learning rate will affect our training duration, and there is a trade-off between large and small learning rate.
 To make training faster, there are some optimizers available to customize the learning rate (like SGD, adam, etc.) which is mostly based on physics.
+
+## Update 1 : Simple linear MLP for a linear regression problem works!
+
+![lin-reg](./assets/train-linear-regression.png)

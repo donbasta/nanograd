@@ -11,6 +11,11 @@ Hence we move toward that direction, and how big we move is ruled by a hyperpara
 The value of the learning rate will affect our training duration, and there is a trade-off between large and small learning rate.
 To make training faster, there are some optimizers available to customize the learning rate (like SGD, adam, etc.) which is mostly based on physics.
 
+# Running
+
+There are several main programs in src/bin folder, and there is a makefile rule for each main program.
+For example, to run linear regression, just run `make linear-regression`
+
 ## Update 1 : Simple linear MLP for a linear regression problem works!
 
 ![lin-reg](./assets/train-linear-regression.png)

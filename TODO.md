@@ -29,3 +29,7 @@
 - [ ] train tweet sentiment
 - [ ] implement attention layer and transformer, and GPT maybe
 - [ ] simple text generator using transformer
+
+## Notes:
+
+- [ ] using large value of data will cause gradient explode lol c++ so lame (i.e nan values here), so implement clipping as well (duh) or normalize weights (batchnorm, perhaps?)

@@ -7,8 +7,10 @@ TEST_DIR = src/tests
 TEST_OBJ_DIR = src/tests/obj
 TEST_BIN_DIR = src/tests/bin
 UTILS_DIR = src/utils
-LINK_PYTHON_LIB = -I/home/farras/.pyenv/versions/3.10.9/include/python3.10 -I/home/farras/.pyenv/versions/3.10.9/lib/python3.10/site-packages/numpy/core/include/ -lpython3.10
-#LINK_PYTHON_LIB = -I/usr/include/python2.7 -lpython2.7
+#LINK_PYTHON_LIB = -I/home/farras/.pyenv/versions/3.10.9/ -lpython3.10
+LINK_PYTHON_LIB = -I/home/farras/.pyenv/versions/2.7.18/include/python2.7/ -lpython2.7
+#LINK_PYTHON_LIB = -I/home/farras/.pyenv/versions/3.10.9/include/python3.10 -I/home/farras/.pyenv/versions/3.10.9/lib/python3.10/site-packages/numpy/core/include/ -lpython3.10
+#LINK_PYTHON_LIB = -I/usr/include/python3.10 -lpython3.10
 
 LAYERS_DIR = src/layers
 
@@ -64,7 +66,7 @@ MLP.o: $(LAYERS_DIR)/MLP.h $(LAYERS_DIR)/Layer.h
 
 utils: $(UTILS_DIR)/number_utils.h $(UTILS_DIR)/data_utils.h
 	$(CXX) $(CXXFLAGS) -c $(UTILS_DIR)/number_utils.cpp -o $(OBJECT_DIR)/number_utils.o
-	$(CXX) $(CXXFLAGS) -c $(UTILS_DIR)/data_utils.cpp -o $(OBJECT_DIR)/data_utils.o
+	$(CXX) $(CXXFLAGS) -std=c++11 -c $(UTILS_DIR)/data_utils.cpp -o $(OBJECT_DIR)/data_utils.o $(LINK_PYTHON_LIB)
 #$(CXX) $(CXXFLAGS) -c $(UTILS_DIR)/data_utils.cpp -o $(OBJECT_DIR)/data_utils.o $(LINK_PYTHON_LIB)
 #g++ -o main main.cpp -I/home/farras/.pyenv/versions/3.10.9/include/python3.10 -lpython3.10
 

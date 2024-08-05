@@ -4,9 +4,7 @@
 
 - [ ] benerin makefilenya biar ga cluttered
 - [ ] implement optimizers and loss functions
-  - [ ] mean squared error (for regresssion)
   - [ ] binary crossentropy (for binary classifier)
-- [ ] create training pipeline with a generated data
 - [ ] visualize training process and accuracy
 - [ ] rapiin typing, classes, subclassing, etc (the oop and rpl stuff lah pokonye)
   - [ ] create abstract class Layer

@@ -2,10 +2,10 @@
 using namespace std;
 
 #include "data_utils.h"
-// #include "matplotlibcpp.h"
+#include "matplotlibcpp.h"
 #include "number_utils.h"
 
-// namespace plt = matplotlibcpp;
+namespace plt = matplotlibcpp;
 
 // we will only generate data with x values between L and R as described below;
 const double L = -1;
@@ -40,6 +40,27 @@ vector<pair<double, double>> gen_2d_quadratic_data_regression(int num_data, doub
 
 // generate noisy data which is separated by the plane y = ax + b
 vector<pair<double, double>> gen_2d_linear_data_classification(int num_data, double a, double b) {
+    return vector<pair<double, double>>{};
+}
+
+vector<pair<double, double>> gen_2d_spiral_data_classification(int num_data_per_class, int num_class) {
+    // source: https://cs231n.github.io/neural-networks-case-study/
+
+    // N = 100 # number of points per class
+    // D = 2 # dimensionality
+    // K = 3 # number of classes
+    // X = np.zeros((N*K,D)) # data matrix (each row = single example)
+    // y = np.zeros(N*K, dtype='uint8') # class labels
+    // for j in range(K):
+    //   ix = range(N*j,N*(j+1))
+    //   r = np.linspace(0.0,1,N) # radius
+    //   t = np.linspace(j*4,(j+1)*4,N) + np.random.randn(N)*0.2 # theta
+    //   X[ix] = np.c_[r*np.sin(t), r*np.cos(t)]
+    //   y[ix] = j
+    // # lets visualize the data:
+    // plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Spectral)
+    // plt.show()
+
     return vector<pair<double, double>>{};
 }
 
